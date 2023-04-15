@@ -1,0 +1,99 @@
+Ground truth:  4  communities
+Walktrap ( t = 2 ) algorithm:
+	Optimal number of communities: K =  4
+	Best modularity: Q =  0.41978961209730437
+	Runtime:  0.017952680587768555  seconds
+Walktrap ( t = 5 ) algorithm:
+	Optimal number of communities: K =  3
+	Best modularity: Q =  0.3943951347797502
+	Runtime:  0.014959573745727539  seconds
+Walktrap ( t = 8 ) algorithm:
+	Optimal number of communities: K =  4
+	Best modularity: Q =  0.3751643655489809
+	Runtime:  0.020944595336914062  seconds
+Louvain algorithm:
+	Optimal number of communities: K =  4
+	Best modularity: Q =  0.41978961209730437
+	Runtime:  0.047872066497802734  seconds
+Girvan-Newman algorithm:
+	Optimal number of communities: K =  5
+	Best modularity: Q =  0.40129848783694944
+	Runtime:  0.12662816047668457  seconds
+Spectral Clustering algorithm:
+	Optimal number of communities: K =  3
+	Best modularity: Q =  0.39907955292570685
+	Runtime:  0.003989458084106445  seconds
+Spectral Clustering:
+	Optimal number of communities: K =  4
+	Best modularity: Q =  0.3427021696252466
+	Runtime:  0.00695347785949707  seconds
+Spectral Clustering:
+	Optimal number of communities: K =  5
+	Best modularity: Q =  0.32848454963839574
+	Runtime:  0.01096963882446289  seconds
+Ground truth:  4  communities
+Walktrap ( t = 2 ) algorithm:
+	Optimal number of communities: K =  1
+	Best modularity: Q =  0.07100591715976332
+	Runtime:  0.013962507247924805  seconds
+Walktrap ( t = 5 ) algorithm:
+	Optimal number of communities: K =  1
+	Best modularity: Q =  0.07100591715976332
+	Runtime:  0.013962507247924805  seconds
+Walktrap ( t = 8 ) algorithm:
+	Optimal number of communities: K =  1
+	Best modularity: Q =  0.07100591715976332
+	Runtime:  0.01296544075012207  seconds
+Louvain algorithm:
+	Optimal number of communities: K =  4
+	Best modularity: Q =  0.44490358126721763
+	Runtime:  0.034906864166259766  seconds
+Girvan-Newman algorithm:
+	Optimal number of communities: K =  6
+	Best modularity: Q =  0.345299001143157
+	Runtime:  0.1466372013092041  seconds
+Spectral Clustering algorithm:
+	Optimal number of communities: K =  3
+	Best modularity: Q =  0.2522347782088042
+	Runtime:  0.007980108261108398  seconds
+Spectral Clustering:
+	Optimal number of communities: K =  4
+	Best modularity: Q =  0.3741028091677443
+	Runtime:  0.00598597526550293  seconds
+Spectral Clustering:
+	Optimal number of communities: K =  5
+	Best modularity: Q =  0.37273476883866496
+	Runtime:  0.013962507247924805  seconds
+Ground truth:  12  communities
+Walktrap ( t = 2 ) algorithm:
+	Optimal number of communities: K =  10
+	Best modularity: Q =  0.6029142904284281
+	Runtime:  0.16057205200195312  seconds
+Walktrap ( t = 5 ) algorithm:
+	Optimal number of communities: K =  10
+	Best modularity: Q =  0.6029142904284281
+	Runtime:  0.16655492782592773  seconds
+Walktrap ( t = 8 ) algorithm:
+	Optimal number of communities: K =  10
+	Best modularity: Q =  0.6007706862460714
+	Runtime:  0.1406238079071045  seconds
+Louvain algorithm:
+	Optimal number of communities: K =  10
+	Best modularity: Q =  0.6045695626834571
+	Runtime:  0.43184638023376465  seconds
+Girvan-Newman algorithm:
+	Optimal number of communities: K =  10
+	Best modularity: Q =  0.5996290274077957
+	Runtime:  14.38154911994934  seconds
+Spectral Clustering algorithm:
+	Optimal number of communities: K =  11
+	Best modularity: Q =  0.4848643714622547
+	Runtime:  0.06878900527954102  seconds
+Spectral Clustering:
+	Optimal number of communities: K =  12
+	Best modularity: Q =  0.457935593409781
+	Runtime:  0.07180356979370117  seconds
+Spectral Clustering:
+	Optimal number of communities: K =  13
+	Best modularity: Q =  0.464446242239248
+	Runtime:  0.0638282299041748  seconds
