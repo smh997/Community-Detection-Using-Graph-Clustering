@@ -57,6 +57,7 @@ def compare_algorithms(G, K_truth, dataset=None, plot=False):
     # Comparison
 
     # WalkTrap Algorithm:
+    plt.figure()
     t = 2
     start_time = time.time()
     parts, coms, _, Qs = walktrap(G, t)
@@ -73,6 +74,7 @@ def compare_algorithms(G, K_truth, dataset=None, plot=False):
     else:
         plt.savefig(f'../output/WalkTrap t2 on {dataset}.png')
 
+    plt.figure()
     t = 5
     start_time = time.time()
     parts, coms, _, Qs = walktrap(G, t)
@@ -89,6 +91,7 @@ def compare_algorithms(G, K_truth, dataset=None, plot=False):
     else:
         plt.savefig(f'../output/WalkTrap t5 on {dataset}.png')
 
+    plt.figure()
     t = 8
     start_time = time.time()
     parts, coms, _, Qs = walktrap(G, t)
@@ -106,6 +109,7 @@ def compare_algorithms(G, K_truth, dataset=None, plot=False):
         plt.savefig(f'../output/WalkTrap t8 on {dataset}.png')
 
     # Louvain Algorithm:
+    plt.figure()
     adj_matrix = np.array(nx.to_numpy_array(G))
     start_time = time.time()
     comms, _ = louvain_method(adj_matrix)
@@ -123,6 +127,7 @@ def compare_algorithms(G, K_truth, dataset=None, plot=False):
         plt.savefig(f'../output/Louvain on {dataset}.png')
 
     # Girvan-Newman Algorithm:
+    plt.figure()
     start_time = time.time()
     comms, _ = girvan_newman(adj_matrix)
     part = comm2part(comms)
@@ -138,24 +143,33 @@ def compare_algorithms(G, K_truth, dataset=None, plot=False):
     else:
         plt.savefig(f'../output/GirvanNewman on {dataset}.png')
 
+    # Q vs k as the number of initial clusters in Spectral Clustering
+    plt.figure()
+    n = nx.number_of_nodes(G)
+    R = list(range(2, K_truth, 3)) + list(range(K_truth, K_truth + 50, 3))  # + list(range(K_truth, n, 3)) + [n]
+    Qs = []
+    # print(R)
+    for k in R:
+        comms = spectral_clustering(adj_matrix, k=k)
+        part = comm2part(comms)
+        Q = community.modularity(part, G)
+        Qs.append(Q)
+    plt.plot(R, Qs)
+    plt.xlabel('Number of Initial Communities k')
+    plt.ylabel('Modularity Q')
+    plt.title('Modularity Q vs Number of Init Comms k -> Best Q = {:.3f}: k = {}'.format(np.max(np.array(Qs)), R[
+        np.argmax(np.array(Qs))]))
+    Spectral_max_Q_k = R[np.argmax(np.array(Qs))]
+    # plt.legend()
+    if plot:
+        plt.show()
+    else:
+        plt.savefig(f'../output/Qvsk of Spectral Clustering on {dataset}.png')
+
     # Spectral Clustering Algorithm
-    k = K_truth-1
-    start_time = time.time()
-    comms = spectral_clustering(adj_matrix, k=k)
-    part = comm2part(comms)
-    Q = community.modularity(part, G)
-    print("Spectral Clustering algorithm:")
-    print("\tOptimal number of communities: K = ", len(set(part.values())))
-    print("\tBest modularity: Q = ", Q)
-    print("\tRuntime: ", time.time() - start_time, " seconds")
-    spectral_best_part = part
-    nx.draw(G, pos, node_color=list(spectral_best_part.values()))
-    if plot:
-        plt.show()
-    else:
-        plt.savefig(f'../output/Spectral truth-1 on {dataset}.png')
 
-    k = K_truth
+    plt.figure()
+    k = Spectral_max_Q_k
     start_time = time.time()
     comms = spectral_clustering(adj_matrix, k=k)
     part = comm2part(comms)
@@ -169,23 +183,7 @@ def compare_algorithms(G, K_truth, dataset=None, plot=False):
     if plot:
         plt.show()
     else:
-        plt.savefig(f'../output/Spectral truth on {dataset}.png')
-
-    k = K_truth + 1
-    start_time = time.time()
-    comms = spectral_clustering(adj_matrix, k=k)
-    part = comm2part(comms)
-    Q = community.modularity(part, G)
-    print("Spectral Clustering:")
-    print("\tOptimal number of communities: K = ", len(set(part.values())))
-    print("\tBest modularity: Q = ", Q)
-    print("\tRuntime: ", time.time() - start_time, " seconds")
-    spectral_best_part = part
-    nx.draw(G, pos, node_color=list(spectral_best_part.values()))
-    if plot:
-        plt.show()
-    else:
-        plt.savefig(f'../output/Spectral truth plus 1 on {dataset}.png')
+        plt.savefig(f'../output/Spectral on {dataset}.png')
 
 
 # Experiments on Zachary’s Karate Club graph (Unweighted)
@@ -201,4 +199,7 @@ compare_algorithms(G, 4, dataset='KarateClub(weighted)')
 G = nx.read_gml('../dataset/football/football.gml', label='id')
 compare_algorithms(G, 12, 'CollegeFootball')
 
+# Experiment on Dblp
+G = nx.read_edgelist('../dataset/dblp/dblp_r4.txt', nodetype=int)
+compare_algorithms(G, 100, 'dblp_r4')
 

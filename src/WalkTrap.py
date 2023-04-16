@@ -77,6 +77,8 @@ def walktrap(G, t, self_loops=True, log=False):
             C1C2_ds, C1_id, C2_id = heappop(min_sigma_heap)
             if C1_id in partitions[k - 1] and C2_id in partitions[k - 1]:
                 break
+        if not min_sigma_heap and (C1_id in partitions[k - 1] and C2_id in partitions[k - 1]):
+            break
         # Delta sigma of this step
         delta_sigmas.append(C1C2_ds)
 
