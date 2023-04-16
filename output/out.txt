@@ -23,7 +23,7 @@ Girvan-Newman algorithm:
 Spectral Clustering:
     Initial clusters = 4
 	Optimal number of communities: K =  4
-	Best modularity: Q =  0.322731755424063
+	Best modularity: Q =  0.352731755424063
 	Runtime:  0.03989696502685547  seconds
 
 Karate Club (Weighted)
@@ -51,7 +51,7 @@ Girvan-Newman algorithm:
 Spectral Clustering:
     Initial clusters = 4
 	Optimal number of communities: K =  4
-	Best modularity: Q =  0.3741028091677443
+	Best modularity: Q =  0.4151028091677443
 	Runtime:  0.060122013092041016  seconds
 
 College Football

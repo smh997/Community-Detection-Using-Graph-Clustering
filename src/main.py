@@ -5,7 +5,8 @@ import numpy as np
 import time
 import community
 from communities.algorithms import louvain_method, girvan_newman, spectral_clustering
-from utils.tools import partition_to_plot, comm2part
+from communities.visualization import draw_communities
+from utils.tools import partition_to_plot, comm2part, part2comm
 
 
 def compare_algorithms(G, K_truth, dataset=None, plot=False):
@@ -57,22 +58,25 @@ def compare_algorithms(G, K_truth, dataset=None, plot=False):
     # Comparison
 
     # WalkTrap Algorithm:
+    adj_matrix = np.array(nx.to_numpy_array(G))
     plt.figure()
     t = 2
     start_time = time.time()
     parts, coms, _, Qs = walktrap(G, t)
     wt_time = time.time() - start_time
     Qmax_index = np.argmax(Qs)
+    my_best_part = partition_to_plot(coms, parts[Qmax_index])
     print("Walktrap ( t =", str(t), ") algorithm:")
-    print("\tOptimal number of communities: K = ", len(Qs) - Qmax_index)
+    print("\tOptimal number of communities: K = ", len(set(my_best_part.values())))
     print("\tBest modularity: Q = ", Qs[Qmax_index])
     print("\tRuntime: ", wt_time, " seconds")
-    my_best_part = partition_to_plot(coms, parts[Qmax_index])
-    nx.draw(G, pos, node_color=list(my_best_part.values()))
+    # nx.draw(G, pos, node_color=list(my_best_part.values()))
     if plot:
-        plt.show()
+        draw_communities(adj_matrix, part2comm(my_best_part))
+        # plt.show()
     else:
-        plt.savefig(f'../output/WalkTrap t2 on {dataset}.png')
+        draw_communities(adj_matrix, part2comm(my_best_part), filename=f'../output/WalkTrap t2 on {dataset}.png')
+        # plt.savefig(f'../output/WalkTrap t2 on {dataset}.png')
 
     plt.figure()
     t = 5
@@ -80,16 +84,19 @@ def compare_algorithms(G, K_truth, dataset=None, plot=False):
     parts, coms, _, Qs = walktrap(G, t)
     wt_time = time.time() - start_time
     Qmax_index = np.argmax(Qs)
+    my_best_part = partition_to_plot(coms, parts[Qmax_index])
     print("Walktrap ( t =", str(t), ") algorithm:")
-    print("\tOptimal number of communities: K = ", len(Qs) - Qmax_index)
+    print("\tOptimal number of communities: K = ", len(set(my_best_part.values())))
     print("\tBest modularity: Q = ", Qs[Qmax_index])
     print("\tRuntime: ", wt_time, " seconds")
-    my_best_part = partition_to_plot(coms, parts[Qmax_index])
-    nx.draw(G, pos, node_color=list(my_best_part.values()))
+    # nx.draw(G, pos, node_color=list(my_best_part.values()))
+    draw_communities(adj_matrix, part2comm(my_best_part))
     if plot:
-        plt.show()
+        draw_communities(adj_matrix, part2comm(my_best_part))
+        # plt.show()
     else:
-        plt.savefig(f'../output/WalkTrap t5 on {dataset}.png')
+        draw_communities(adj_matrix, part2comm(my_best_part), filename=f'../output/WalkTrap t5 on {dataset}.png')
+        # plt.savefig(f'../output/WalkTrap t5 on {dataset}.png')
 
     plt.figure()
     t = 8
@@ -97,20 +104,22 @@ def compare_algorithms(G, K_truth, dataset=None, plot=False):
     parts, coms, _, Qs = walktrap(G, t)
     wt_time = time.time() - start_time
     Qmax_index = np.argmax(Qs)
+    my_best_part = partition_to_plot(coms, parts[Qmax_index])
     print("Walktrap ( t =", str(t), ") algorithm:")
-    print("\tOptimal number of communities: K = ", len(Qs) - Qmax_index)
+    print("\tOptimal number of communities: K = ", len(set(my_best_part.values())))
     print("\tBest modularity: Q = ", Qs[Qmax_index])
     print("\tRuntime: ", wt_time, " seconds")
-    my_best_part = partition_to_plot(coms, parts[Qmax_index])
-    nx.draw(G, pos, node_color=list(my_best_part.values()))
+    # nx.draw(G, pos, node_color=list(my_best_part.values()))
+    draw_communities(adj_matrix, part2comm(my_best_part))
     if plot:
-        plt.show()
+        draw_communities(adj_matrix, part2comm(my_best_part))
+        # plt.show()
     else:
-        plt.savefig(f'../output/WalkTrap t8 on {dataset}.png')
+        draw_communities(adj_matrix, part2comm(my_best_part), filename=f'../output/WalkTrap t8 on {dataset}.png')
+        # plt.savefig(f'../output/WalkTrap t8 on {dataset}.png')
 
     # Louvain Algorithm:
     plt.figure()
-    adj_matrix = np.array(nx.to_numpy_array(G))
     start_time = time.time()
     comms, _ = louvain_method(adj_matrix)
     part = comm2part(comms)
@@ -120,11 +129,13 @@ def compare_algorithms(G, K_truth, dataset=None, plot=False):
     print("\tBest modularity: Q = ", Q)
     print("\tRuntime: ", time.time() - start_time, " seconds")
     louvain_best_part = part
-    nx.draw(G, pos, node_color=list(louvain_best_part.values()))
+    # nx.draw(G, pos, node_color=list(louvain_best_part.values()))
     if plot:
-        plt.show()
+        # plt.show()
+        draw_communities(adj_matrix, comms)
     else:
-        plt.savefig(f'../output/Louvain on {dataset}.png')
+        draw_communities(adj_matrix, comms, filename=f'../output/Louvain on {dataset}.png')
+        # plt.savefig(f'../output/Louvain on {dataset}.png')
 
     # Girvan-Newman Algorithm:
     plt.figure()
@@ -137,18 +148,20 @@ def compare_algorithms(G, K_truth, dataset=None, plot=False):
     print("\tBest modularity: Q = ", Q)
     print("\tRuntime: ", time.time() - start_time, " seconds")
     girvan_best_part = part
-    nx.draw(G, pos, node_color=list(girvan_best_part.values()))
+    # nx.draw(G, pos, node_color=list(girvan_best_part.values()))
+
     if plot:
-        plt.show()
+        # plt.show()
+        draw_communities(adj_matrix, comms)
     else:
-        plt.savefig(f'../output/GirvanNewman on {dataset}.png')
+        # plt.savefig(f'../output/GirvanNewman on {dataset}.png')
+        draw_communities(adj_matrix, comms, filename=f'../output/GirvanNewman on {dataset}.png', seed=1)
 
     # Q vs k as the number of initial clusters in Spectral Clustering
     plt.figure()
     n = nx.number_of_nodes(G)
-    R = list(range(2, K_truth, 3)) + list(range(K_truth, K_truth + 50, 3))  # + list(range(K_truth, n, 3)) + [n]
+    R = list(range(2, K_truth, 3)) + list(range(K_truth, n, 3)) + [n]  # + list(range(K_truth, K_truth + 50, 3))
     Qs = []
-    # print(R)
     for k in R:
         comms = spectral_clustering(adj_matrix, k=k)
         part = comm2part(comms)
@@ -179,11 +192,13 @@ def compare_algorithms(G, K_truth, dataset=None, plot=False):
     print("\tBest modularity: Q = ", Q)
     print("\tRuntime: ", time.time() - start_time, " seconds")
     spectral_best_part = part
-    nx.draw(G, pos, node_color=list(spectral_best_part.values()))
+    # nx.draw(G, pos, node_color=list(spectral_best_part.values()))
     if plot:
-        plt.show()
+        draw_communities(adj_matrix, comms)
+        # plt.show()
     else:
-        plt.savefig(f'../output/Spectral on {dataset}.png')
+        draw_communities(adj_matrix, comms, filename=f'../output/Spectral on {dataset}.png', seed=3)
+        # plt.savefig(f'../output/Spectral on {dataset}.png')
 
 
 # Experiments on Zachary’s Karate Club graph (Unweighted)
@@ -201,5 +216,5 @@ compare_algorithms(G, 12, 'CollegeFootball')
 
 # Experiment on Dblp
 G = nx.read_edgelist('../dataset/dblp/dblp_r4.txt', nodetype=int)
-compare_algorithms(G, 100, 'dblp_r4')
+compare_algorithms(G, 313, 'dblp_r4')
 

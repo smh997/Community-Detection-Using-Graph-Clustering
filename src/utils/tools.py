@@ -53,3 +53,10 @@ def comm2part(comms):
         for v in c:
             part[v] = c_id
     return part
+
+
+def part2comm(part):
+    comms = [set() for i in range(len(set(part.values())))]
+    for v in part:
+        comms[part[v]].add(v)
+    return comms
