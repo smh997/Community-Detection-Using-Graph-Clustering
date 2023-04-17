@@ -13,11 +13,14 @@
 - DBLP
 
 ### Set up
+
+The Python version we used is `3.10.7`
+
 You only need to install communities and community packages as follows:
 
 ```
 $ pip install communities
-$ pip install community
+$ pip install python-louvain
 ```
 
 Then you can simply run it by the command below:
